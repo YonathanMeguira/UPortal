@@ -33,6 +33,7 @@ import { DialogsModule } from "./modules/dialog.module"
     AppRoutingModule,
     MaterialModule,
     FlexLayoutModule,
+    DialogsModule
     
   ],
   bootstrap: [AppComponent]

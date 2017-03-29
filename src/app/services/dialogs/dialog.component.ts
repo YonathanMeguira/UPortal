@@ -12,13 +12,14 @@ import { Component } from '@angular/core';
             (click)="dialogRef.close()">Cancel</button>
     `,
 })
+
 export class ConfirmDialog {
 
     public title: string;
     public message: string;
 
     constructor(public dialogRef: MdDialogRef<ConfirmDialog>) {
-
+        
     }
 }
 
