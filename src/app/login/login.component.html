@@ -47,7 +47,7 @@
       </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-      <button md-raised-button color = "primary" routerLink="/mail" [disabled]="!loginForm.form.valid">Log In</button>
+      <button md-raised-button color = "primary" (click) = "checkLogin()" [disabled]="!loginForm.form.valid">Log In</button>
       <button md-raised-button  color="accent">Forgot Password</button>
     </div>
   </form>
