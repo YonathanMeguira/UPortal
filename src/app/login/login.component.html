@@ -36,13 +36,13 @@
           #passwordLabel="ngModel">
         <div *ngIf="passwordLabel.errors && (passwordLabel.dirty || passwordLabel.touched)" class="customAlert" style="width: 90%">
           <div [hidden]="!passwordLabel.errors.required">
-            password is required
+            Password is required
           </div>
           <div [hidden]="!passwordLabel.errors.minlength">
-            password must be at least 4 characters long.
+            Password must be at least 4 characters long.
           </div>
           <div [hidden]="!passwordLabel.errors.maxlength">
-            password cannot be more than 24 characters long.
+            Password cannot be more than 24 characters long.
           </div>
         </div>
       </md-input-container>
@@ -51,13 +51,13 @@
         <button md-raised-button color="accent">Forgot Password</button>
       </div>
       <div fxLayout="row" fxLayoutAlign="start start" fxFlex="90">
-        <md-slide-toggle color="primary" [checked]="EnableCookies()">
+        <md-slide-toggle color="primary">
           Remember me!
         </md-slide-toggle>
       </div>
     </form>
     <div fxLayout="column" fxLayoutAlign="center center" *ngIf="isLoginInValidation" fxFill>
-      <md-progress-circle class="example-margin" color="primary" mode="indeterminate" >
+      <md-progress-circle color="primary" mode="indeterminate">
       </md-progress-circle>
     </div>
   </md-card>

@@ -1,0 +1,14 @@
+<!-- nesting level: 2 entry inside the app -->
+<md-toolbar color="primary">
+  <span>
+    <button md-button routerLink="/home/mail" routerLinkActive="active" style="margin-right: 0.3em">
+    <md-icon style="margin-right: 0.3em">mail</md-icon> Mails</button>
+    <button md-button routerLink="/home/sanitization" routerLinkActive="active">
+    <md-icon style="margin-right: 0.3em">insert_drive_file</md-icon> Sanitization</button>
+  </span>
+  <span class="example-fill-remaining-space"></span>
+  <button md-icon-button (click)="logout()"><md-icon>exit_to_app</md-icon></button>
+</md-toolbar>
+<router-outlet></router-outlet>
+
+

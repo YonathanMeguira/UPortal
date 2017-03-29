@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoginService } from "../services/login/login.service"
+import { Users } from "../services/users/users.service"
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [LoginService]
+  providers: [Users]
 })
 export class LoginComponent implements OnInit {
 
@@ -20,17 +20,18 @@ export class LoginComponent implements OnInit {
   username: string = "";
   password: string = "";
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private userService: Users, private router: Router) { }
 
   checkLogin() {
     this.isLoginInValidation = true;
-    this.loginService.checkLogin(this.server, this.username, this.password)
+    this.userService.login(this.server, this.username, this.password)
       .subscribe(success => {
         console.log(success);
         var token = "Bearer " + success.AccessToken;
         localStorage.setItem("token", token);
+        localStorage.setItem("serverName", this.server)
         this.isLoginInValidation = false;
-        this.router.navigate(['/mail'])
+        this.router.navigate(['/home/mail'])
       },
       err => console.log(err)
       );
