@@ -1,9 +1,14 @@
 #login-form{
 
 width: 35%;
-
+padding-top: 3em;
 }
 .login-input{
     width: 90%;
   
+}
+.customAlert{
+    color: #F50057;
+    text-align: left;
+    font-weight: 800;
 }
