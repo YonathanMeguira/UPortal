@@ -1,0 +1,55 @@
+<div fxLayout="column" fxFill fxLayoutAlign="center center">
+  <md-card id="login-form">
+  <form fxLayout="column" fxLayoutGap="40px" fxLayoutAlign="center center"  name="loginform" #loginForm="ngForm" >
+    <md-input-container class="login-input">
+      <input mdInput placeholder="Server Name" type="text" name="server" required minlength="4" maxlength="24" [(ngModel)]="server"
+        #servername="ngModel">
+    </md-input-container>
+    <div *ngIf="servername.errors && (servername.dirty || servername.touched)" class="alert alert-danger" style="width: 90%">
+      <div [hidden]="!servername.errors.required">
+        Server is required
+      </div>
+      <div [hidden]="!servername.errors.minlength">
+        Server must be at least 4 characters long.
+      </div>
+      <div [hidden]="!servername.errors.maxlength">
+        Server cannot be more than 24 characters long.
+      </div>
+    </div>
+    <md-input-container class="login-input">
+      <input mdInput placeholder="Username" type="text" name="username" required minlength="4" maxlength="24" [(ngModel)]="username"
+        #usernameLabel="ngModel">
+    </md-input-container>
+    <div *ngIf="usernameLabel.errors && (usernameLabel.dirty || usernameLabel.touched)" class="alert alert-danger" style="width: 90%">
+      <div [hidden]="!usernameLabel.errors.required">
+        Username is required
+      </div>
+      <div [hidden]="!usernameLabel.errors.minlength">
+        Username must be at least 4 characters long.
+      </div>
+      <div [hidden]="!usernameLabel.errors.maxlength">
+        Username cannot be more than 24 characters long.
+      </div>
+    </div>
+    <md-input-container class="login-input">
+      <input mdInput placeholder="Password" type="password" name="password" required minlength="4" maxlength="24" [(ngModel)]="password"
+        #passwordLabel="ngModel">
+    </md-input-container>
+    <div *ngIf="passwordLabel.errors && (passwordLabel.dirty || passwordLabel.touched)" class="alert alert-danger" style="width: 90%">
+      <div [hidden]="!passwordLabel.errors.required">
+        password is required
+      </div>
+      <div [hidden]="!passwordLabel.errors.minlength">
+        password must be at least 4 characters long.
+      </div>
+      <div [hidden]="!passwordLabel.errors.maxlength">
+        password cannot be more than 24 characters long.
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+      <button md-raised-button color = "primary" routerLink="/mail" [disabled]="!loginForm.form.valid">Log In</button>
+      <button md-raised-button  color="accent">Forgot Password</button>
+    </div>
+  </form>
+  </md-card>
+</div>
