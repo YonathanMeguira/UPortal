@@ -13,7 +13,7 @@ const appRoutes: Routes = [
         path: 'home',
         component: HomeComponent,
         children: [
-            { path: 'mail', component: MailComponent },
+            { path: 'mail/:username', component: MailComponent },
             { path: 'sanitization', component: SanitizationComponent }
 
         ]

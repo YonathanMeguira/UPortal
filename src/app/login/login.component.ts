@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("token", token);
         localStorage.setItem("serverName", this.server)
         this.isLoginInValidation = false;
-        this.router.navigate(['/home/mail'])
+        this.router.navigate(['/home/mail', this.username])
       },
       err => console.log(err)
       );
