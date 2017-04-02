@@ -31,9 +31,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("token", token);
         localStorage.setItem("serverName", this.server)
         this.isLoginInValidation = false;
-       // this.router.navigate(['/mail'], { queryParams: { userName: this.username } },)
-        this.router.navigate(['/mail', this.username])
-        // this.router.navigate(['/mail', this.username])
+        this.router.navigate(['/home/mail', this.username])
       },
       err => console.log(err)
       );

@@ -1,31 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { MailService} from "../services/mails/mails.service";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+//import activatedRoute to see what are the param in the current view => username
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
   selector: 'app-mail',
   templateUrl: './mail.component.html',
-  styleUrls: ['./mail.component.css'],
-  providers: [MailService]
-
+  styleUrls: ['./mail.component.css']
 })
-export class MailComponent implements OnInit {
-  public currentMails : string;
-  private userName : string;
+export class MailComponent implements OnInit, OnDestroy {
 
-  constructor(private mailService: MailService, private router: Router, private activatedRoute: ActivatedRoute) {
-    this.userName = activatedRoute.snapshot.params['userName'];
-  }
+  public retrievedUser: string;
+  private sub: any;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      this.retrievedUser = params['username'];
+    });
   }
 
-  getMails() {
-    this.mailService.getMails(this.userName).subscribe(success => {
-            //this.router.navigate(['/home/mail'])
-          this.currentMails = success.toString();
-          },
-          err => console.log(err))
+  //unsubscribe to avoid memerory leaks when we leave this view
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
+
 }
