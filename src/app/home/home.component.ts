@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   constructor(private dialogsService: DialogsService, private userService: Users, private router: Router) { }
 
   ngOnInit() {
+
   }
   public logout() {
     this.dialogsService

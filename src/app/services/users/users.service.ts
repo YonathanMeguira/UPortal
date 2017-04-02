@@ -5,11 +5,9 @@ import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class Users {
-
-
   constructor(private http: Http) { }
   login(server, username, password): Observable<any> {
-    var LoginUrl = "http://" + server + ":4580/api/users/login"
+    var LoginUrl = "http://" + server + ":4580/userPortal/login"
     return this.http.post(LoginUrl, { username, password })
       .map((res) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error, could not verify login'));

@@ -13,9 +13,9 @@ const appRoutes: Routes = [
         path: 'home',
         component: HomeComponent,
         children: [
-            { path: 'mail', component: MailComponent },
+            //{ path: 'mail/:id', component: MailComponent },
+            { path: 'mail/:userName', component: MailComponent },
             { path: 'sanitization', component: SanitizationComponent }
-
         ]
     }
 ];
