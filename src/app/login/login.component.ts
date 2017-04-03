@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
         console.log(success);
         var token = "Bearer " + success.AccessToken;
         localStorage.setItem("token", token);
-        localStorage.setItem("serverName", this.server)
+        localStorage.setItem("serverName", this.server);
         this.isLoginInValidation = false;
-        this.router.navigate(['/home/mail', this.username])
+        this.router.navigate(['/home/mail', success.UserAdditionalData.UserFullName || this.username]);
       },
       err => console.log(err)
       );
