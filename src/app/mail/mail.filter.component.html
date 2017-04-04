@@ -1,40 +1,16 @@
 <!--<link rel="stylesheet" href="app/reports/email/filter/style.css" />-->
+
 <div class="md-dialog-container">
     <md-toolbar class="sanitization-filter-toolbar" layout="row" layout-align="center center">
       <h3 id="filter-title">Filters</h3>
     </md-toolbar>
 
     <md-list>
-      <select>
-        <option *ngFor="let x of sanitizationFields" [value]="v" (click) = 'getComputers()'>
-          {{v.name}}
-        </option>
-      </select>
       <md-list-item *ngFor="let x of sanitizationFields" layout="row" layout-align="space-between center">
         {{x.Key}}
-        <md-select [(ngModel)]="Kku[x]" (change)="change($event)" placeholder ="Pick an action">
+        <md-select [(ngModel)]="sanFields[x.Key]"  (change)="change($event)" placeholder ="Pick an action">
           <md-option *ngFor="let i of x.Value" [value]="i">{{i}}</md-option>
         </md-select>
-        <!--<md-input-container flex = "70">-->
-        <!--<md-select ng-model="f_q[x.Key]" placeholder="{{x.Value[0]}}">-->
-        <!--<md-option ng-repeat="status in x.Value" ng-value="status">-->
-        <!--{{status}}-->
-        <!--</md-option>-->
-        <!--</md-select>-->
-        <!--</md-input-container>-->
-      </md-list-item>
-      <md-list-item *ngFor="let x of sanitizationFields" layout="row" layout-align="space-between center">
-        {{x.Key}}
-        <md-select [(ngModel)]="Kku[x]"  (change)="change($event)" placeholder ="Pick an action">
-          <md-option *ngFor="let i of x.Value" [value]="i">{{i}}</md-option>
-        </md-select>
-        <!--<md-input-container flex = "70">-->
-          <!--<md-select ng-model="f_q[x.Key]" placeholder="{{x.Value[0]}}">-->
-            <!--<md-option ng-repeat="status in x.Value" ng-value="status">-->
-              <!--{{status}}-->
-            <!--</md-option>-->
-          <!--</md-select>-->
-        <!--</md-input-container>-->
       </md-list-item>
       <!-- computer List -->
       <md-list-item layout="row" layout-align="space-between center">

@@ -16,11 +16,12 @@ import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 export class FilterDialogComponent {
   public sanitizationFields:any;
   public computerFields:any;
+  public sanFields:Object = new Object();
 
   constructor(public dialogRef: MdDialogRef<any>, private sanitizationsService: SanitizationService) { }
 
   ngOnInit() {
-    //this.getSanitizationFields();
+    this.getSanitizationFields();
     this.getComputers();
   }
 
@@ -46,7 +47,6 @@ export class FilterDialogComponent {
     console.log(event);
   }
 }
-
 
 @Component({
   selector: 'app-mail',
