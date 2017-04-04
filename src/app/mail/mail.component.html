@@ -1,3 +1,30 @@
-<h3>
-  you have connected with username <span style="color: red"> {{ retrievedUser }}</span> i know this from route param suscribing
-</h3>
+<table class="table table-responsive">
+  <thead>
+  <th md-column md-numeric>
+    <button md-icon-button (click)="open()" color="primary">
+      <!--<md-icon svgSrc="./../icons/filter.svg"></md-icon>-->
+      <md-icon>menu</md-icon>
+    </button>
+  </th>
+  <th *ngFor="let title of tableTitles">{{title}}</th>
+  </thead>
+<tbody>
+<tr *ngFor="let row of mailsData">
+  <td><button md-button>details</button></td>
+  <td>{{row.Status}}</td>
+  <td>{{row['Start Time']}}</td>
+  <td>undefined</td>
+  <td>{{row['Mail From Address']}}</td>
+  <td>{{row['Mail To Addresses']}}</td>
+  <td>{{row['Mail Subject']}}</td>
+  <td>{{row['Size']}}</td>
+  <td>
+    <md-select [(ngModel)]="item" (change)="change($event)" [disabled]="disabled" placeholder ="Pick an action">
+      <md-option *ngFor="let i of row.Actions" [value]="i" [disabled]="i">{{i}}</md-option>
+    </md-select>
+  </td>
+</tr>
+
+</tbody>
+
+</table>

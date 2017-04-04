@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { MailComponent } from './mail/mail.component';
+import { FilterDialogComponent, MailComponent } from './mail/mail.component';
 import { SanitizationComponent } from './sanitization/sanitization.component';
 import { AppRoutingModule } from './app.routes';
 
@@ -15,6 +15,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeComponent } from './home/home.component';
 //custom dialog module for confirmation to be used throughout the app
 import { DialogsModule } from "./modules/dialog.module"
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//import { AnimationsModule } from '@angular/animations';
+//import {AuthGuard} from "./services/app-guard/auth-guard.service";
 
 
 @NgModule({
@@ -23,9 +27,9 @@ import { DialogsModule } from "./modules/dialog.module"
     LoginComponent,
     MailComponent,
     SanitizationComponent,
-    HomeComponent
+    HomeComponent,
+    FilterDialogComponent
   ],
- 
   imports: [
     BrowserModule,
     FormsModule,
@@ -33,9 +37,10 @@ import { DialogsModule } from "./modules/dialog.module"
     AppRoutingModule,
     MaterialModule,
     FlexLayoutModule,
-    DialogsModule
-    
+    DialogsModule,
+    BrowserAnimationsModule
   ],
+  entryComponents:[FilterDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,3 +1,28 @@
-<p>
-  sanitization works!
-</p>
+<table class="table table-responsive">
+  <thead>
+  <th md-column md-numeric>
+    <button md-icon-button (click)="open()" color="primary">
+      <!--<md-icon svgSrc="./../icons/filter.svg"></md-icon>-->
+      <md-icon>menu</md-icon>
+    </button>
+  </th>
+  <th *ngFor="let title of tableTitles">{{title}}</th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let row of sanitizationsData">
+    <td><button md-button>Details</button></td>
+    <td>{{row.Status}}</td>
+    <td>{{row['Start Time']}}</td>
+    <td>undefined</td>
+    <td>{{row['File Name']}}</td>
+    <td>{{row['Size']}}</td>
+    <td>{{row['User']}}</td>
+    <td>{{row['Computer Name']}}</td>
+    <td>
+      <md-select [(ngModel)]="item" (change)="change($event)" [disabled]="disabled" placeholder ="Pick an action">
+        <md-option *ngFor="let i of row.Actions" [value]="i" [disabled]="i">{{i}}</md-option>
+      </md-select>
+    </td>
+  </tr>
+  </tbody>
+</table>
