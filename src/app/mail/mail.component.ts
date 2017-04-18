@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 //import activatedRoute to see what are the param in the current view => username
 import { ActivatedRoute } from '@angular/router';
 import {HomeComponent} from "../home/home.component";
 import {MailService} from "../services/mails/mails.service";
 import {SanitizationService} from "../services/sanitizations/sanitization.service";
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {DatePickerOptions} from "ng2-datepicker/lib-dist/ng2-datepicker.component";
+
 
 @Component({
   selector: 'filterDialogComponent',
@@ -14,15 +16,24 @@ import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
 })
 
 export class FilterDialogComponent {
+  momentValue: any;
+  channelFields: any;
   public sanitizationFields:any;
   public computerFields:any;
+  public channelList:any;
   public sanFields:Object = new Object();
+
+  @Input() fileName;
+  @Input() options: DatePickerOptions;
+  @Input() inputEvents: EventEmitter<{ type: string, data: string }>;
+  @Output() outputEvents: EventEmitter<{ type: string, data: string }>;
 
   constructor(public dialogRef: MdDialogRef<any>, private sanitizationsService: SanitizationService) { }
 
   ngOnInit() {
     this.getSanitizationFields();
     this.getComputers();
+    this.getChannels();
   }
 
   getSanitizationFields(){
@@ -43,8 +54,26 @@ export class FilterDialogComponent {
     );
   }
 
+  getChannels(){
+    this.sanitizationsService.getChannelFields().subscribe(res => {
+        console.log(res);
+        this.channelList = res || {};
+      },
+      err => console.log(err)
+    );
+  }
+
+  sendFilterQuery(){
+    
+  }
+
   change(event){
     console.log(event);
+  }
+
+  setMoment(moment: any): any {
+    this.momentValue = moment;
+    // Do whatever you want to the return object 'moment'
   }
 }
 
@@ -80,6 +109,7 @@ export class MailComponent implements OnInit, OnDestroy {
         );
     });
   }
+
   open() {
     let filterDialogConfig = new MdDialogConfig();
 
@@ -89,7 +119,6 @@ export class MailComponent implements OnInit, OnDestroy {
       this.dialogRef = null;
     });
   }
-
 
   // unsubscribe to avoid memory leaks when we leave this view
   ngOnDestroy() {

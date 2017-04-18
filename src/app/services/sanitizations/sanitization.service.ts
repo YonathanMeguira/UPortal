@@ -19,18 +19,25 @@ export class SanitizationService {
   }
 
   getSanitizationsFilterFields(): Observable<any> {
-    var getFilterFieldURL = "http://" + this._hostName + ":4580/api/jsonserver/sanitizations?q=sanitization_filter_fields";
+    var getFilterFieldURL = "http://" + this._hostName + ":4580/userPortal/jsonserver/sanitizations?q=sanitization_filter_fields";
 
     return this.http.get(getFilterFieldURL)
       .map((res) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error, get sanitizationsFilter failed'));
   }
 
-
   getComputerFields() {
     var getAdMachinesURL = "http://" + this._hostName + ":4580/api/users/getadmachines";
 
     return this.http.get(getAdMachinesURL)
+      .map((res) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error, get sanitizationsFilter failed'));
+  }
+
+  getChannelFields() {
+    var getChannelsURL = "http://" + this._hostName + ":4580/api/channels/getallchannels/?q=1";
+
+    return this.http.get(getChannelsURL)
       .map((res) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error, get sanitizationsFilter failed'));
   }

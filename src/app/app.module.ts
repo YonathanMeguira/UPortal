@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 //custom dialog module for confirmation to be used throughout the app
 import { DialogsModule } from "./modules/dialog.module"
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {DatePickerModule} from 'ng2-datepicker';
 
 //import { AnimationsModule } from '@angular/animations';
 //import {AuthGuard} from "./services/app-guard/auth-guard.service";
@@ -38,7 +39,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MaterialModule,
     FlexLayoutModule,
     DialogsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DatePickerModule
   ],
   entryComponents:[FilterDialogComponent],
   bootstrap: [AppComponent]
