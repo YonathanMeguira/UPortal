@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 
 
 @Injectable()
-export class Users {
+export class UserService {
   constructor(private http: Http) { }
   login(server, username, password): Observable<any> {
     var LoginUrl = "http://" + server + ":4580/userPortal/login";

@@ -1,64 +1,97 @@
-<div fxLayout="column" fxFill fxLayoutAlign="center center" style="background-color: #E8EAF6">
-  <md-card id="login-form" fxFlex="45">
-    <form *ngIf="!isLoginInValidation" fxLayout="column" fxLayoutGap="40px" fxLayoutAlign="center center" name="loginform" #loginForm="ngForm">
-      <md-input-container class="login-input">
-        <input mdInput placeholder="Server Name" type="text" name="server" required minlength="4" maxlength="24" [(ngModel)]="server"
-          #servername="ngModel">
-        <div *ngIf="servername.errors && (servername.dirty || servername.touched)" class="customAlert" style="width: 90%">
-          <div [hidden]="!servername.errors.required">
-            Server is required
-          </div>
-          <div [hidden]="!servername.errors.minlength">
-            Server must be at least 4 characters long.
-          </div>
-          <div [hidden]="!servername.errors.maxlength">
-            Server cannot be more than 24 characters long.
-          </div>
-        </div>
-      </md-input-container>
-      <md-input-container class="login-input">
-        <input mdInput placeholder="Username" type="text" name="username" required minlength="4" maxlength="24" [(ngModel)]="username"
-          #usernameLabel="ngModel">
-        <div *ngIf="usernameLabel.errors && (usernameLabel.dirty || usernameLabel.touched)" class="customAlert" style="width: 90%">
-          <div [hidden]="!usernameLabel.errors.required">
-            Username is required
-          </div>
-          <div [hidden]="!usernameLabel.errors.minlength">
-            Username must be at least 4 characters long.
-          </div>
-          <div [hidden]="!usernameLabel.errors.maxlength">
-            Username cannot be more than 24 characters long.
-          </div>
-        </div>
-      </md-input-container>
-      <md-input-container class="login-input">
-        <input mdInput placeholder="Password" type="password" name="password" required minlength="4" maxlength="24" [(ngModel)]="password"
-          #passwordLabel="ngModel">
-        <div *ngIf="passwordLabel.errors && (passwordLabel.dirty || passwordLabel.touched)" class="customAlert" style="width: 90%">
-          <div [hidden]="!passwordLabel.errors.required">
-            Password is required
-          </div>
-          <div [hidden]="!passwordLabel.errors.minlength">
-            Password must be at least 4 characters long.
-          </div>
-          <div [hidden]="!passwordLabel.errors.maxlength">
-            Password cannot be more than 24 characters long.
-          </div>
-        </div>
-      </md-input-container>
-      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-        <button md-raised-button color="primary" (click)="checkLogin()" [disabled]="!loginForm.form.valid">Log In</button>
-        <button md-raised-button color="accent">Forgot Password</button>
+<div class="outer" fxLayout="column" fxLayoutAlign="center center" fxFill>
+  <h3 *ngIf="wrongId" color="accent">Please enter valid credentials</h3>
+  <div class="frame white" style="width: 40%">
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div [hidden]="isSubmitted" fxFlex="90">
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm" id="form-container" fxLayout="column" fxLayoutGap="20px"
+              fxLayoutWrap>
+          <md-input-container class="full-width" dividerColor="primary">
+            <input mdInput placeholder="Server" type="text" id="server" required [(ngModel)]="user.server" name="server"
+                   #server="ngModel">
+            <label [hidden]="server.valid || server.pristine" class="wrong-input">Server is required</label>
+          </md-input-container>
+          <md-input-container class="full-width" dividerColor="primary">
+            <input mdInput type="text" placeholder="UserName" id="username" required [(ngModel)]="user.username"
+                   name="username" #username="ngModel">
+            <label [hidden]="username.valid || username.pristine" class="wrong-input">Username is required</label>
+          </md-input-container>
+          <md-input-container class="full-width" dividerColor="primary">
+            <input mdInput type="password" placeholder="Password" id="password" required [(ngModel)]="user.password"
+                   name="password" #password="ngModel">
+            <label [hidden]="password.valid || password.pristine" class="wrong-input">Password is incorrect</label>
+          </md-input-container>
+          <button type="submit" md-raised-button [disabled]="!loginForm.valid" color="primary">Submit</button>
+        </form>
       </div>
-      <div fxLayout="row" fxLayoutAlign="start start" fxFlex="90">
-        <md-slide-toggle color="primary">
-          Remember me!
-        </md-slide-toggle>
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <md-spinner *ngIf="checkingUser" color="primary"></md-spinner>
       </div>
-    </form>
-    <div fxLayout="column" fxLayoutAlign="center center" *ngIf="isLoginInValidation" fxFill>
-      <md-progress-circle color="primary" mode="indeterminate">
-      </md-progress-circle>
     </div>
-  </md-card>
+  </div>
 </div>
+
+<!--<div fxLayout="column" fxFill fxLayoutAlign="center center" style="background-color: #E8EAF6">-->
+  <!--<md-card id="login-form" fxFlex="45">-->
+    <!--<form *ngIf="!isLoginInValidation" fxLayout="column" fxLayoutGap="40px" fxLayoutAlign="center center" name="loginform" #loginForm="ngForm">-->
+      <!--<md-input-container class="login-input">-->
+        <!--<input mdInput placeholder="Server Name" type="text" name="server" required minlength="4" maxlength="24" [(ngModel)]="server"-->
+          <!--#servername="ngModel">-->
+        <!--<div *ngIf="servername.errors && (servername.dirty || servername.touched)" class="customAlert" style="width: 90%">-->
+          <!--<div [hidden]="!servername.errors.required">-->
+            <!--Server is required-->
+          <!--</div>-->
+          <!--<div [hidden]="!servername.errors.minlength">-->
+            <!--Server must be at least 4 characters long.-->
+          <!--</div>-->
+          <!--<div [hidden]="!servername.errors.maxlength">-->
+            <!--Server cannot be more than 24 characters long.-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</md-input-container>-->
+      <!--<md-input-container class="login-input">-->
+        <!--<input mdInput placeholder="Username" type="text" name="username" required minlength="4" maxlength="24" [(ngModel)]="username"-->
+          <!--#usernameLabel="ngModel">-->
+        <!--<div *ngIf="usernameLabel.errors && (usernameLabel.dirty || usernameLabel.touched)" class="customAlert" style="width: 90%">-->
+          <!--<div [hidden]="!usernameLabel.errors.required">-->
+            <!--Username is required-->
+          <!--</div>-->
+          <!--<div [hidden]="!usernameLabel.errors.minlength">-->
+            <!--Username must be at least 4 characters long.-->
+          <!--</div>-->
+          <!--<div [hidden]="!usernameLabel.errors.maxlength">-->
+            <!--Username cannot be more than 24 characters long.-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</md-input-container>-->
+      <!--<md-input-container class="login-input">-->
+        <!--<input mdInput placeholder="Password" type="password" name="password" required minlength="4" maxlength="24" [(ngModel)]="password"-->
+          <!--#passwordLabel="ngModel">-->
+        <!--<div *ngIf="passwordLabel.errors && (passwordLabel.dirty || passwordLabel.touched)" class="customAlert" style="width: 90%">-->
+          <!--<div [hidden]="!passwordLabel.errors.required">-->
+            <!--Password is required-->
+          <!--</div>-->
+          <!--<div [hidden]="!passwordLabel.errors.minlength">-->
+            <!--Password must be at least 4 characters long.-->
+          <!--</div>-->
+          <!--<div [hidden]="!passwordLabel.errors.maxlength">-->
+            <!--Password cannot be more than 24 characters long.-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</md-input-container>-->
+      <!--<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">-->
+        <!--<button md-raised-button color="primary" (click)="checkLogin()" [disabled]="!loginForm.form.valid">Log In</button>-->
+        <!--<button md-raised-button color="accent">Forgot Password</button>-->
+      <!--</div>-->
+      <!--<div fxLayout="row" fxLayoutAlign="start start" fxFlex="90">-->
+        <!--<md-slide-toggle color="primary">-->
+          <!--Remember me!-->
+        <!--</md-slide-toggle>-->
+      <!--</div>-->
+    <!--</form>-->
+    <!--<div fxLayout="column" fxLayoutAlign="center center" *ngIf="isLoginInValidation" fxFill>-->
+      <!--<md-progress-circle color="primary" mode="indeterminate">-->
+      <!--</md-progress-circle>-->
+    <!--</div>-->
+  <!--</md-card>-->
+<!--</div>-->
