@@ -16,6 +16,9 @@ import { HomeComponent } from './home/home.component';
 //custom dialog module for confirmation to be used throughout the app
 import { DialogsModule } from "./modules/dialog.module"
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CovalentDataTableModule } from '@covalent/data-table';
+import { CovalentPagingModule } from '@covalent/paging';
+//import { CovalentSearchModule } from '@covalent/search';
 
 //import { AnimationsModule } from '@angular/animations';
 //import {AuthGuard} from "./services/app-guard/auth-guard.service";
@@ -38,7 +41,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MaterialModule,
     FlexLayoutModule,
     DialogsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CovalentDataTableModule
+    // CovalentPagingModule,
+    // CovalentSearchModule.forRoot()
   ],
   entryComponents:[FilterDialogComponent],
   bootstrap: [AppComponent]

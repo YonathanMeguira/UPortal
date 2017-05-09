@@ -26,12 +26,25 @@ export class SanitizationService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error, get sanitizationsFilter failed'));
   }
 
-
   getComputerFields() {
     var getAdMachinesURL = "http://" + this._hostName + ":4580/api/users/getadmachines";
 
     return this.http.get(getAdMachinesURL)
       .map((res) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error, get sanitizationsFilter failed'));
+  }
+
+  getEmailFilterResults(filterQuery : any){
+    var getMailURL = "http://" + this._hostName + ":4580/api/report/GetSanitizations/?q=1";
+
+    let params: URLSearchParams = new URLSearchParams();
+    Object.keys(filterQuery).forEach((key)=>{
+      params.set(key, filterQuery[key])
+    });
+
+    return this.http.get(getMailURL, { search: filterQuery })
+      .map(
+        (res) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error, get getEmailFilterResults failed'));
   }
 }

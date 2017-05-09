@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogsService } from '../services/dialogs/dialogs.service';
-import { Users } from "../services/users/users.service";
+import { UserService } from "../services/users/users.service";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 //import {AuthGuard} from "../services/app-guard/auth-guard.service";
 
@@ -10,14 +10,14 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   // providers: [DialogsService, Users, AuthGuard]
-  providers: [DialogsService, Users]
+  providers: [DialogsService, UserService]
 })
 export class HomeComponent implements OnInit {
   selectedOption: string;
   public result: any;
   public currUserName: any;
 
-  constructor(private dialogsService: DialogsService, private userService: Users, private router: Router) { }
+  constructor(private dialogsService: DialogsService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
 

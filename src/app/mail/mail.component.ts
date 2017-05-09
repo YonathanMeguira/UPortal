@@ -13,10 +13,12 @@ import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
   providers:[SanitizationService],
 })
 
-export class FilterDialogComponent {
+export class FilterDialogComponent  {
   public sanitizationFields:any;
   public computerFields:any;
   public sanFields:Object = new Object();
+  public kuku:any = Math.floor(Math.random() * 6) + 1;
+  public modelPlaceHolder
 
   constructor(public dialogRef: MdDialogRef<any>, private sanitizationsService: SanitizationService) { }
 
@@ -46,6 +48,21 @@ export class FilterDialogComponent {
   change(event){
     console.log(event);
   }
+
+  cancelFilter(){
+    console.log(event);
+    this.dialogRef.close();
+  }
+
+  sendFilterQuery(){
+    console.log(event);
+    this.dialogRef.close(this.sanFields);
+
+    // this.sanitizationsService.getEmailFilterResults(this.sanFields).subscribe(
+    //   res => {console.log(res)},
+    //   err => console.log(err)
+    // );
+  }
 }
 
 @Component({
@@ -60,8 +77,11 @@ export class MailComponent implements OnInit, OnDestroy {
   public retrievedUser: string;
   public mailsData:any;
   private sub: any;
-  private dialogRef: MdDialogRef<any>;
+  private dialogRef: MdDialogRef<FilterDialogComponent>;
   public tableTitles: Array<string> = ['Details','Status', 'Start Time', 'Ticket ID', 'From', 'To', 'Subject', 'Size', 'Actions' ];
+  private _filteringData: any;
+  private filterDialogConfig = new MdDialogConfig();
+ // private _filterDialog : MdDialog;
 
   constructor(private route: ActivatedRoute, private home:HomeComponent, private mailsService: MailService, public dialog: MdDialog) { }
 
@@ -81,12 +101,25 @@ export class MailComponent implements OnInit, OnDestroy {
     });
   }
   open() {
-    let filterDialogConfig = new MdDialogConfig();
+    //this.filterDialogConfig.data  = this._filteringData;
+    this.dialogRef = this.dialog.open(FilterDialogComponent, this.filterDialogConfig);
 
-    this.dialogRef = this.dialog.open(FilterDialogComponent, filterDialogConfig);
+    if (this._filteringData != null)
+      this.dialogRef.componentInstance.sanFields = this._filteringData;
 
-    this.dialogRef.afterClosed().subscribe(result => {
+    this.dialogRef.afterClosed().subscribe(dialogResult => {
       this.dialogRef = null;
+
+      if (dialogResult == null) {
+        return;
+      }
+
+      this._filteringData = dialogResult;
+      this.mailsService.getEmailFilterResults(dialogResult).subscribe(
+        res => { this.mailsData = res.List || {};},
+        err => console.log(err)
+      );
+
     });
   }
 
