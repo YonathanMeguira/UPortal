@@ -1,12 +1,10 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 //import activatedRoute to see what are the param in the current view => username
 import { ActivatedRoute } from '@angular/router';
 import {HomeComponent} from "../home/home.component";
 import {MailService} from "../services/mails/mails.service";
 import {SanitizationService} from "../services/sanitizations/sanitization.service";
 import {MdDialog, MdDialogConfig, MdDialogRef} from '@angular/material';
-import {DatePickerOptions} from "ng2-datepicker/lib-dist/ng2-datepicker.component";
-
 
 @Component({
   selector: 'filterDialogComponent',
@@ -15,25 +13,18 @@ import {DatePickerOptions} from "ng2-datepicker/lib-dist/ng2-datepicker.componen
   providers:[SanitizationService],
 })
 
-export class FilterDialogComponent {
-  momentValue: any;
-  channelFields: any;
+export class FilterDialogComponent  {
   public sanitizationFields:any;
   public computerFields:any;
-  public channelList:any;
   public sanFields:Object = new Object();
-
-  @Input() fileName;
-  @Input() options: DatePickerOptions;
-  @Input() inputEvents: EventEmitter<{ type: string, data: string }>;
-  @Output() outputEvents: EventEmitter<{ type: string, data: string }>;
+  public kuku:any = Math.floor(Math.random() * 6) + 1;
+  public modelPlaceHolder
 
   constructor(public dialogRef: MdDialogRef<any>, private sanitizationsService: SanitizationService) { }
 
   ngOnInit() {
     this.getSanitizationFields();
     this.getComputers();
-    this.getChannels();
   }
 
   getSanitizationFields(){
@@ -54,26 +45,23 @@ export class FilterDialogComponent {
     );
   }
 
-  getChannels(){
-    this.sanitizationsService.getChannelFields().subscribe(res => {
-        console.log(res);
-        this.channelList = res || {};
-      },
-      err => console.log(err)
-    );
-  }
-
-  sendFilterQuery(){
-    
-  }
-
   change(event){
     console.log(event);
   }
 
-  setMoment(moment: any): any {
-    this.momentValue = moment;
-    // Do whatever you want to the return object 'moment'
+  cancelFilter(){
+    console.log(event);
+    this.dialogRef.close();
+  }
+
+  sendFilterQuery(){
+    console.log(event);
+    this.dialogRef.close(this.sanFields);
+
+    // this.sanitizationsService.getEmailFilterResults(this.sanFields).subscribe(
+    //   res => {console.log(res)},
+    //   err => console.log(err)
+    // );
   }
 }
 
@@ -89,8 +77,11 @@ export class MailComponent implements OnInit, OnDestroy {
   public retrievedUser: string;
   public mailsData:any;
   private sub: any;
-  private dialogRef: MdDialogRef<any>;
+  private dialogRef: MdDialogRef<FilterDialogComponent>;
   public tableTitles: Array<string> = ['Details','Status', 'Start Time', 'Ticket ID', 'From', 'To', 'Subject', 'Size', 'Actions' ];
+  private _filteringData: any;
+  private filterDialogConfig = new MdDialogConfig();
+ // private _filterDialog : MdDialog;
 
   constructor(private route: ActivatedRoute, private home:HomeComponent, private mailsService: MailService, public dialog: MdDialog) { }
 
@@ -109,16 +100,29 @@ export class MailComponent implements OnInit, OnDestroy {
         );
     });
   }
-
   open() {
-    let filterDialogConfig = new MdDialogConfig();
+    //this.filterDialogConfig.data  = this._filteringData;
+    this.dialogRef = this.dialog.open(FilterDialogComponent, this.filterDialogConfig);
 
-    this.dialogRef = this.dialog.open(FilterDialogComponent, filterDialogConfig);
+    if (this._filteringData != null)
+      this.dialogRef.componentInstance.sanFields = this._filteringData;
 
-    this.dialogRef.afterClosed().subscribe(result => {
+    this.dialogRef.afterClosed().subscribe(dialogResult => {
       this.dialogRef = null;
+
+      if (dialogResult == null) {
+        return;
+      }
+
+      this._filteringData = dialogResult;
+      this.mailsService.getEmailFilterResults(dialogResult).subscribe(
+        res => { this.mailsData = res.List || {};},
+        err => console.log(err)
+      );
+
     });
   }
+
 
   // unsubscribe to avoid memory leaks when we leave this view
   ngOnDestroy() {

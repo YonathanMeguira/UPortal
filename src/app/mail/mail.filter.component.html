@@ -1,98 +1,41 @@
 <!--<link rel="stylesheet" href="app/reports/email/filter/style.css" />-->
+<div>{{kuku}}</div>
+<div class="md-dialog-container">
+    <md-toolbar class="sanitization-filter-toolbar" layout="row" layout-align="center center">
+      <h3 id="filter-title">Filters</h3>
+    </md-toolbar>
 
-<div class="md-dialog-container" flex="66">
-  <md-toolbar class="sanitization-filter-toolbar" >
-    <h3 id="filter-title">Filters</h3>
-  </md-toolbar>
-
-  <div fxLayout="column" fxFlex = "100">
-    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="2em"  *ngFor="let x of sanitizationFields">
-      <p>{{x.Key}}</p>
-      <md-select [(ngModel)]="sanFields[x.Key]"  (change)="change($event)" placeholder ="Pick an action">
-        <md-option *ngFor="let i of x.Value" [value]="i">{{i}}</md-option>
-      </md-select>
-    </div>
-  </div>
-  <div fxLayout="column" fxFlex = "100">
-    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="2em">
-      <p>Start Time</p>
-      <!--<input [ngModel]="momentValue | date: 'short'" [dateTimePicker]="momentValue" (dateTimePickerChange)="setMoment($event)"  readonly class="margin-left"/>-->
-      <ng2-datepicker [options]="options" [(ngModel)]="sanFields.startDate" name="startDate"></ng2-datepicker>
-    </div>
-  </div>
-  <div fxLayout="column" fxFlex = "100">
-    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="2em">
-      <p>End Time</p>
-      <ng2-datepicker [options]="options" [(ngModel)]="sanFields.endDate" name="startDate"></ng2-datepicker>
-      <!--<input [ngModel]="momentValue | date: 'short'" [dateTimePicker]="momentValue" (dateTimePickerChange)="setMoment($event)"  readonly class="margin-left"/>-->
-    </div>
-  </div>
-  <div fxLayout="column" fxFlex = "100">
-    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="2em">
-      <p>Ticket ID</p>
-      <input type="text" type="name" aria-label="chant" [(ngModel)] = "sanFields.ticketId" class="margin-left"/>
-    </div>
-  </div>
-  <div fxLayout="column" fxFlex = "100">
-    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="2em">
-      <p>From</p>
-      <input type="text" type="name" aria-label="chant" [(ngModel)] = "sanFields.from" class="margin-left"/>
-    </div>
-  </div>
-  <div fxLayout="column" fxFlex = "100">
-    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="2em">
-      <p>To</p>
-      <input type="text" type="name" aria-label="chant" [(ngModel)] = "sanFields.to" class="margin-left"/>
-    </div>
-  </div>
-  <div fxLayout="column" fxFlex = "100">
-    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="2em">
-      <p>Subject</p>
-      <input type="text" type="name" aria-label="chant" [(ngModel)] = "sanFields.subject" class="margin-left"/>
-    </div>
-  </div>
-
-
-  <!--<md-list>-->
-    <!--<md-list-item>-->
-      <!--<md-select [(ngModel)]="sanFields[x.Key]"  (change)="change($event)" placeholder ="Pick an action">-->
-        <!--<md-option *ngFor="let i of x.Value" [value]="i">{{i}}</md-option>-->
-      <!--</md-select>-->
-    <!--</md-list-item>-->
-    <!--&lt;!&ndash;<md-list-item>&ndash;&gt;-->
-    <!--&lt;!&ndash;&lt;!&ndash;<div layout="row" layout-align="space-between center" layout-margin>&ndash;&gt;&ndash;&gt;-->
-      <!--&lt;!&ndash;&lt;!&ndash;<div>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;<p>Start Time</p>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;<input [ngModel]="momentValue | date: 'short'" [dateTimePicker]="momentValue" (dateTimePickerChange)="setMoment($event)" readonly />&ndash;&gt;&ndash;&gt;-->
-      <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
-    <!--&lt;!&ndash;</md-list-item>&ndash;&gt;-->
-    <!--<md-list-item>-->
-        <!--<p>End Time</p>-->
-        <!--<input [ngModel]="momentValue | date: 'short'" [dateTimePicker]="momentValue" (dateTimePickerChange)="setMoment($event)"  readonly class="margin-left"/>-->
-    <!--</md-list-item>-->
-    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-    <!--<md-list-item >-->
-      <!--Ticket ID-->
-      <!--<input type="text" type="name" aria-label="chant" [(ngModel)] = "sanFields.ticketId" class="margin-left"/>-->
-    <!--</md-list-item>-->
-    <!--<md-list-item>-->
-      <!--<p>From</p>-->
-      <!--<input type="text" type="name" aria-label="chant" [(ngModel)] = "sanFields.from" class="margin-left"/>-->
-    <!--</md-list-item>-->
-    <!--<md-list-item fxLayout="row" fxLayoutALign="space-between center">-->
-     <!--<p>To</p>-->
-      <!--<input type="text" type="name" aria-label="chant" [(ngModel)] = "sanFields.to" class="margin-left"/>-->
-    <!--</md-list-item>-->
-    <!--<md-list-item>-->
-      <!--Subject-->
-      <!--<input type="text" type="name" aria-label="chant" [(ngModel)] = "sanFields.subject" class="margin-left"/>-->
-    <!--</md-list-item>-->
-
-  <!--</md-list>-->
-  <div fxLayout="row" fxLayoutAlign="space-between center">
-    <button md-button class="cancel-sanitization-filters" flex="50" md-dialog-close>CANCEL</button>
-    <button md-button class="close-sanitization-filters" flex="50" (click)="sendFilterQuery()" >FILTER</button>
-  </div>
+    <md-list>
+      <md-list-item *ngFor="let x of sanitizationFields" layout="row" layout-align="space-between center">
+        {{x.Key}}
+        <md-select [(ngModel)]="sanFields[x.Key]" (change)="change($event, x.Key)" [placeholder]="false" >
+          <md-option *ngFor="let i of x.Value" [value]="i">{{i}}</md-option>
+        </md-select>
+      </md-list-item>
+      <!-- computer List -->
+      <md-list-item layout="row" layout-align="space-between center">
+        Computer
+        <!--<md-input-container flex = "70">-->
+          <md-select [(ngModel)]="computer" (change)="change($event)" placeholder="Pick a computer from the list">
+            <md-option *ngFor="let computer of computerFields" [value]="computer">>
+              {{computer}}
+            </md-option>
+          </md-select>
+        <!--</md-input-container>-->
+      </md-list-item>
+      <div layout="row" layout-align="space-between center">
+        <button md-button class="cancel-sanitization-filters" flex="50" (click)="cancelFilter()">CANCEL</button>
+        <button md-button class="close-sanitization-filters" flex="50" (click)="sendFilterQuery()">FILTER</button>
+      </div>
+    </md-list>
 </div>
+<script>
+ // var link = document.getElementById('getNumber');
 
-
+    var minNumber = 0;
+    var maxNumber = 100;
+    var randomnumber = Math.floor(Math.random() * (maxNumber + 1) + minNumber);
+    $('#myNumber').html(randomnumber);
+  //  return false;
+ // }
+</script>

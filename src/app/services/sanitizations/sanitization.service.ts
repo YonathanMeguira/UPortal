@@ -19,7 +19,7 @@ export class SanitizationService {
   }
 
   getSanitizationsFilterFields(): Observable<any> {
-    var getFilterFieldURL = "http://" + this._hostName + ":4580/userPortal/jsonserver/sanitizations?q=sanitization_filter_fields";
+    var getFilterFieldURL = "http://" + this._hostName + ":4580/api/jsonserver/sanitizations?q=sanitization_filter_fields";
 
     return this.http.get(getFilterFieldURL)
       .map((res) => res.json())
@@ -34,11 +34,17 @@ export class SanitizationService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error, get sanitizationsFilter failed'));
   }
 
-  getChannelFields() {
-    var getChannelsURL = "http://" + this._hostName + ":4580/api/channels/getallchannels/?q=1";
+  getEmailFilterResults(filterQuery : any){
+    var getMailURL = "http://" + this._hostName + ":4580/api/report/GetSanitizations/?q=1";
 
-    return this.http.get(getChannelsURL)
-      .map((res) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error, get sanitizationsFilter failed'));
+    let params: URLSearchParams = new URLSearchParams();
+    Object.keys(filterQuery).forEach((key)=>{
+      params.set(key, filterQuery[key])
+    });
+
+    return this.http.get(getMailURL, { search: filterQuery })
+      .map(
+        (res) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error, get getEmailFilterResults failed'));
   }
 }
